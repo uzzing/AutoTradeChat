@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148299650273",
+    "project_id": "autotradeapp-977a8",
+    "storage_bucket": "autotradeapp-977a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148299650273:android:e83343a0a33a79a28353a0",
+        "android_client_info": {
+          "package_name": "com.project.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148299650273-qg74oand2j04kaek6sthmq7jp4t1dqv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjeUJADcqMsMZYPioF_3axdNh9Hx_194A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148299650273-qg74oand2j04kaek6sthmq7jp4t1dqv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
