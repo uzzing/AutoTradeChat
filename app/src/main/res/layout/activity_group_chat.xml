@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_200"
+    tools:context=".GroupChatActivity">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayout">
+
+        <!-- message list -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- each message -->
+            <include
+                android:id="@+id/group_chat_text_display"
+                layout="@layout/chat_other_message">
+            </include>
+
+            <include
+                android:id="@+id/group_chat_text_display"
+                layout="@layout/chat_my_message">
+            </include>
+
+            <include
+                android:id="@+id/group_chat_text_display"
+                layout="@layout/chat_other_message">
+            </include>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- send field -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/input_message"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:hint="Please write message here"
+            android:layout_marginLeft="20dp"
+            android:textColorHint="@color/gray"
+            android:textSize="18dp">
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/group_chat_send"
+            android:src="@drawable/chat_send"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitCenter"
+            app:tint="@color/blue_300"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:background="@null">
+        </ImageButton>
+    </LinearLayout>
+</RelativeLayout>
