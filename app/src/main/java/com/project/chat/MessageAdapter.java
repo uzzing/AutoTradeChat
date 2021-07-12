@@ -35,9 +35,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
-
-
-
+        // my message
+        public TextView myName, myMessage, myMessageTime;
+        // other message
+        public TextView otherName, otherMessage, otherMessageTime;
+        public ImageView otherProfileImage;
+        public MessageViewHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+            // my message
+            myMessage = (TextView) itemView.findViewById(R.id.my_message);
+            myMessageTime = (TextView) itemView.findViewById(R.id.my_message_time);
+            // other message
+            otherName = (TextView) itemView.findViewById(R.id.other_name);
+            otherMessage = (TextView) itemView.findViewById(R.id.other_message);
+            otherMessageTime = (TextView) itemView.findViewById(R.id.other_message_time);
+            otherProfileImage = (ImageView) itemView.findViewById(R.id.other_profile);
+        }
     }
 
     // extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>
