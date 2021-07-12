@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
@@ -67,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentUser == null) {
             sendUserToLoginActivity();
+        }
+        else {
+            MyData.name = Arrays.stream(currentUser.getEmail().split("@")).findFirst().get();
         }
     }
 

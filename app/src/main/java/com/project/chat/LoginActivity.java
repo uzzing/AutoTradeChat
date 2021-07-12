@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
@@ -118,9 +120,12 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
 
                     if (task.isSuccessful()) {
+
                         Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
 
                         sendUserToMainActivity();
+
+                        setMyData();
                     }
                     else {
                         String message = task.getException().toString();
@@ -132,4 +137,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // set my name for chat
+    private void setMyData() {
+        MyData.name = Arrays.stream(userEmail.getText().toString().split("@")).findFirst().get();
+    }
 }

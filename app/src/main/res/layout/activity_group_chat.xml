@@ -15,28 +15,12 @@
         android:layout_above="@+id/linearLayout">
 
         <!-- message list -->
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_message_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <!-- each message -->
-            <include
-                android:id="@+id/group_chat_text_display"
-                layout="@layout/chat_other_message">
-            </include>
-
-            <include
-                android:id="@+id/group_chat_text_display"
-                layout="@layout/chat_my_message">
-            </include>
-
-            <include
-                android:id="@+id/group_chat_text_display"
-                layout="@layout/chat_other_message">
-            </include>
-
-        </LinearLayout>
+        </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 
     <!-- send field -->

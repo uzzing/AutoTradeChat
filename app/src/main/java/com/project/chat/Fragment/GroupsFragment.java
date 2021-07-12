@@ -48,8 +48,11 @@ public class GroupsFragment extends Fragment {
         // Inflate the layout for this fragment
         groupFragmentView = inflater.inflate(R.layout.fragment_groups, container, false);
         GroupRef = FirebaseDatabase.getInstance().getReference().child("Groups");
+
         initializeFields();
+
         retrieveAndDisplayGroups();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -61,13 +64,17 @@ public class GroupsFragment extends Fragment {
         });
         return groupFragmentView;
     }
+
     private void initializeFields() {
         listView = groupFragmentView.findViewById(R.id.group_list);
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, groupList);
         listView.setAdapter(arrayAdapter);
     }
+
     private void retrieveAndDisplayGroups() {
+
         GroupRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Set<String> set = new HashSet<>();
@@ -79,12 +86,11 @@ public class GroupsFragment extends Fragment {
                 groupList.addAll(set);
                 arrayAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
     }
-
-
-
 }

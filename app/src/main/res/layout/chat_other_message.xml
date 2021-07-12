@@ -2,22 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue_200">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:background="@color/blue_200"
+    android:clipToPadding="false"
+    android:padding="10dp">
 
         <!-- profile -->
         <ImageView
             android:id="@+id/other_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="37dp"
+            android:layout_height="40dp"
             android:src="@drawable/chat_profile"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="3dp"
             app:tint="@color/white">
         </ImageView>
 
@@ -27,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="other"
-            android:textSize="22dp"
+            android:textSize="18dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_toRightOf="@+id/other_profile"
-            android:layout_marginLeft="5dp">
+            android:layout_marginLeft="3dp">
         </TextView>
 
         <!-- message -->
@@ -40,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="message"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_toRightOf="@+id/other_profile"
             android:layout_below="@+id/other_name"
             android:padding="10dp"
@@ -48,7 +44,7 @@
             android:maxWidth="250dp"
             android:background="@drawable/chat_other_message_box"
             android:textColor="@color/gray"
-            android:elevation="7dp"
+            android:elevation="3dp"
             android:autoSizeTextType="uniform">
         </TextView>
 
@@ -58,12 +54,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="time"
-            android:textSize="15dp"
-            android:layout_below="@id/other_name"
+            android:textSize="13dp"
             android:layout_toRightOf="@id/other_message"
-            android:layout_marginTop="28dp"
+            android:layout_alignBottom="@+id/other_message"
             android:layout_marginLeft="7dp">
         </TextView>
-    </RelativeLayout>
 
 </RelativeLayout>
