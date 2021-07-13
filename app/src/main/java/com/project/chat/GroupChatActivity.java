@@ -102,6 +102,7 @@ public class GroupChatActivity extends AppCompatActivity {
                 messagesList.add(messages);
                 messageAdapter.notifyDataSetChanged();
                 messageListView.setAdapter(messageAdapter); // declared twice
+                messageListView.scrollToPosition(messagesList.size()-1);
             }
 
             @Override
@@ -137,7 +138,6 @@ public class GroupChatActivity extends AppCompatActivity {
         messageListView = (RecyclerView) findViewById(R.id.all_message_display);
         linearLayoutManager = new LinearLayoutManager(this);
         messageListView.setLayoutManager(linearLayoutManager);
-        messageListView.setAdapter(messageAdapter);
 
         // the below
         sendMessageButton = (ImageButton) findViewById(R.id.group_chat_send);

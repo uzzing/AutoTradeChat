@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,16 +37,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
+
         // my message
         public TextView myName, myMessage, myMessageTime;
+
         // other message
         public TextView otherName, otherMessage, otherMessageTime;
         public ImageView otherProfileImage;
+
         public MessageViewHolder(@NonNull @NotNull View itemView) {
+
             super(itemView);
+
             // my message
             myMessage = (TextView) itemView.findViewById(R.id.my_message);
             myMessageTime = (TextView) itemView.findViewById(R.id.my_message_time);
+
             // other message
             otherName = (TextView) itemView.findViewById(R.id.other_name);
             otherMessage = (TextView) itemView.findViewById(R.id.other_message);

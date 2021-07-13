@@ -3,36 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:clipToPadding="false"
-    android:gravity="right">
+    android:background="@color/blue_200"
+    android:gravity="right"
+    android:paddingTop="5dp"
+    android:paddingRight="3dp"
+    android:paddingBottom="5dp">
+
+    <!-- time -->
+    <TextView
+        android:id="@+id/my_message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/my_message_box"
+        android:layout_alignBottom="@id/my_message_box"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:text="time"
+        android:textSize="12dp">
+    </TextView>
+
+    <FrameLayout
+        android:id="@+id/my_message_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingLeft="2dp"
+        android:paddingRight="6dp">
 
         <!-- message -->
         <TextView
             android:id="@+id/my_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="message"
-            android:textSize="18dp"
-            android:padding="10dp"
-            android:layout_marginTop="5dp"
-            android:maxWidth="250dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/chat_my_message_box"
-            android:textColor="@color/gray"
-            android:elevation="3dp"
-            android:autoSizeTextType="uniform">
-        </TextView>
+            android:elevation="1dp"
+            android:maxLines="7"
+            android:padding="10dp"
+            android:text="message"
+            android:textColor="@color/black"
+            android:textSize="15dp"></TextView>
 
-        <!-- time -->
-        <TextView
-            android:id="@+id/my_message_time"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/my_message_tail"
+            android:layout_width="14dp"
             android:layout_height="wrap_content"
-            android:text="time"
-            android:textSize="13dp"
-            android:layout_toLeftOf="@id/my_message"
-            android:layout_alignBottom="@+id/my_message"
-            android:layout_marginRight="7dp">
-        </TextView>
-
+            android:layout_gravity="right"
+            android:layout_toRightOf="@+id/my_message"
+            android:elevation="100dp"
+            android:paddingTop="7dp"
+            android:src="@drawable/chat_my_message_tail"
+            app:tint="@color/yellow_200"></ImageView>
+    </FrameLayout>
 </RelativeLayout>

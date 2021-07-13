@@ -1,6 +1,7 @@
 package com.project.chat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,11 +16,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,15 +36,20 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // ui
     private Button loginButton;
-    private ImageButton kakaoLoginButton;
+    private ImageButton googleLoginButton;
     private EditText userEmail, userPassword;
     private TextView createAccountLink, resetPasswordLink;
+    private ProgressDialog loadingBar;
 
+    // firebase
     private FirebaseUser currentUser;
     private FirebaseAuth auth;
 
-    private ProgressDialog loadingBar;
+    // google login
+    private GoogleSignInClient googleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeFields();
 
+        // common login
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,18 +74,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // if click 'Create new account, go to register
+        // register
         createAccountLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendUserToRegisterActivity();
             }
         });
+
+        // google login
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+
+        googleLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleLogin();
+            }
+        });
+
     }
 
     private void initializeFields() {
         loginButton = (Button) findViewById(R.id.login_button);
-        kakaoLoginButton = (ImageButton) findViewById(R.id.login_kakao_button);
+        googleLoginButton = (ImageButton) findViewById(R.id.login_google_button);
         userEmail = (EditText) findViewById(R.id.login_email);
         userPassword = (EditText) findViewById(R.id.login_password);
         createAccountLink = (TextView) findViewById(R.id.create_account_link);
@@ -141,4 +172,30 @@ public class LoginActivity extends AppCompatActivity {
     private void setMyData() {
         MyData.name = Arrays.stream(userEmail.getText().toString().split("@")).findFirst().get();
     }
+
+    // google login
+    private void googleLogin() {
+        Intent googleLoginIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(googleLoginIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            }
+            catch (ApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
 }
