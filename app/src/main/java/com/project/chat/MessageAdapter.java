@@ -15,8 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+
 
 import org.jetbrains.annotations.NotNull;
 
@@ -117,7 +116,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         // how many messages
         return messagesList.size();
     }
+
 }
+
+
 
 
 // String messageType = messages.getType();
