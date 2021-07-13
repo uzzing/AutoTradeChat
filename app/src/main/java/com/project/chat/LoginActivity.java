@@ -196,6 +196,29 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // google login -> sign in with credential
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Google Logged in successfully", Toast.LENGTH_SHORT).show();
+                            sendUserToMainActivity();
+                            setMyData();
+                        }
+                        else {
+                            String message = task.getException().toString();
+                            Toast.makeText(LoginActivity.this, "Error : " + message, Toast.LENGTH_LONG).show();
+                        }
+                        loadingBar.dismiss();
+                    }
+                });
+    }
 
 }
