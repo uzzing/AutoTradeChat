@@ -42,7 +42,7 @@
 
                 <!-- message tail -->
                 <ImageView
-                    android:id="@+id/my_message_tail"
+                    android:id="@+id/other_message_tail"
                     android:layout_width="14dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -70,6 +70,20 @@
                     android:elevation="1dp"
                     android:maxLines="7">
                 </TextView>
+
+                <ImageView
+                    android:id="@+id/other_message_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="5dp"
+                    android:scaleType="centerCrop" ></ImageView>
+
+                <ImageView
+                    android:id="@+id/other_message_image_expanded"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
         </FrameLayout>
 
                 <!-- time -->

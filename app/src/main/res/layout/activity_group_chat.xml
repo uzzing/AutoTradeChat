@@ -32,25 +32,37 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white">
 
+        <ImageButton
+            android:id="@+id/chat_send_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/chat_send_image"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="7dp">
+        </ImageButton>
+
         <EditText
             android:id="@+id/input_message"
-            android:layout_width="310dp"
+            android:layout_width="295dp"
             android:layout_height="wrap_content"
             android:hint="Please write message here"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
             android:textColorHint="@color/gray"
             android:textSize="18dp">
         </EditText>
 
         <ImageButton
-            android:id="@+id/group_chat_send"
-            android:src="@drawable/chat_send"
+            android:id="@+id/chat_send_message"
+            android:src="@drawable/chat_send_message"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="fitCenter"
             app:tint="@color/blue_300"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
             android:background="@null">
         </ImageButton>
     </LinearLayout>

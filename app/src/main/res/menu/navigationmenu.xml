@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/home"
+        android:icon="@drawable/chat_send_image"
+        android:title="Home"></item>
+
+    <item android:id="@+id/autotrade"
+        android:icon="@drawable/chat_send_image"
+        android:title="Autotrade"></item>
+
+    <item android:id="@+id/chat"
+        android:icon="@drawable/chat_send_image"
+        android:title="Group chat"></item>
+
+    <item android:id="@+id/trade_chart"
+        android:icon="@drawable/chat_send_image"
+        android:title="Trade chart"></item>
+
+    <item android:id="@+id/mypage"
+        android:icon="@drawable/chat_send_image"
+        android:title="My page"></item>
+</menu>

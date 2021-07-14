@@ -1,5 +1,6 @@
 package com.project.chat;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
@@ -28,7 +31,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     // get chat data
     private FirebaseAuth auth;
-    private DatabaseReference MessageRef;
 
     public MessageAdapter(List<MessageItem> messagesList, String currentGroupName) {
         this.messagesList = messagesList;
@@ -38,11 +40,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public class MessageViewHolder extends RecyclerView.ViewHolder {
 
         // my message
-        public TextView myName, myMessage, myMessageTime;
+        public TextView myMessage, myMessageTime;
+        public ImageView myMessageImage, myMessageTail;
 
         // other message
         public TextView otherName, otherMessage, otherMessageTime;
-        public ImageView otherProfileImage;
+        public ImageView otherProfileImage, otherMessageTail;
+        public ImageView otherMessageImage;
+
+        final ImageView expandedImageView;
 
         public MessageViewHolder(@NonNull @NotNull View itemView) {
 
@@ -50,13 +56,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             // my message
             myMessage = (TextView) itemView.findViewById(R.id.my_message);
+            myMessageTail = (ImageView) itemView.findViewById(R.id.my_message_tail);
             myMessageTime = (TextView) itemView.findViewById(R.id.my_message_time);
+            myMessageImage = (ImageView) itemView.findViewById(R.id.my_message_image);
 
             // other message
             otherName = (TextView) itemView.findViewById(R.id.other_name);
             otherMessage = (TextView) itemView.findViewById(R.id.other_message);
+            otherMessageTail = (ImageView) itemView.findViewById(R.id.other_message_tail);
             otherMessageTime = (TextView) itemView.findViewById(R.id.other_message_time);
             otherProfileImage = (ImageView) itemView.findViewById(R.id.other_profile);
+            otherMessageImage = (ImageView) itemView.findViewById(R.id.other_message_image);
+
+            expandedImageView = (ImageView) itemView.findViewById(
+                    R.id.my_message_image_expanded);
         }
     }
 
@@ -89,17 +102,40 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         MessageItem messages = messagesList.get(position);
         String name = messages.getName();
         String messageTime = messages.getTime();
+        String type = messages.getType();
 
-        // if sender is me
-        if (name.equals(MyData.name)) {
-            messageViewHolder.myMessage.setText(messages.getMessage());
-            messageViewHolder.myMessageTime.setText(messageTime);
+        if (type.equals("text")) {
+            // if sender is me
+            if (name.equals(MyData.name)) {
+                messageViewHolder.myMessage.setText(messages.getMessage());
+                messageViewHolder.myMessageTime.setText(messageTime);
+            }
+            else { // if sender is other
+                messageViewHolder.otherName.setText(name);
+                messageViewHolder.otherMessage.setText(messages.getMessage());
+                messageViewHolder.otherMessageTime.setText(messageTime);
+                messageViewHolder.otherProfileImage.setVisibility(View.VISIBLE);
+            }
         }
-        else { // if sender is other
-            messageViewHolder.otherName.setText(name);
-            messageViewHolder.otherMessage.setText(messages.getMessage());
-            messageViewHolder.otherMessageTime.setText(messageTime);
-            messageViewHolder.otherProfileImage.setVisibility(View.VISIBLE);
+        else if (type.equals("image")) {
+
+            // if sender is me
+            if (name.equals(MyData.name)) {
+                messageViewHolder.myMessage.setVisibility(View.INVISIBLE);
+                messageViewHolder.myMessageTail.setVisibility(View.INVISIBLE);
+                messageViewHolder.myMessageTime.setText(messageTime);
+                messageViewHolder.myMessageImage.setVisibility(View.VISIBLE);
+                Picasso.get().load(messages.getMessage()).resize(600, 0).into(messageViewHolder.myMessageImage);
+            }
+            else { // if sender is other
+                messageViewHolder.otherName.setText(name);
+                messageViewHolder.otherMessage.setVisibility(View.INVISIBLE);
+                messageViewHolder.otherMessageTail.setVisibility(View.INVISIBLE);
+                messageViewHolder.otherMessageTime.setText(messageTime);
+                messageViewHolder.otherProfileImage.setVisibility(View.VISIBLE);
+                messageViewHolder.otherMessageImage.setVisibility(View.VISIBLE);
+                Picasso.get().load(messages.getMessage()).resize(600, 0).into(messageViewHolder.otherMessageImage);
+            }
         }
     }
 
@@ -118,11 +154,3 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
 }
-
-
-
-
-// String messageType = messages.getType();
-
-// if type is text
-//        if (messageType.equals("text")) {

@@ -30,6 +30,14 @@
         android:paddingLeft="2dp"
         android:paddingRight="6dp">
 
+        <ImageView
+            android:id="@+id/my_message_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"></ImageView>
+
         <!-- message -->
         <TextView
             android:id="@+id/my_message"
@@ -44,6 +52,7 @@
             android:textColor="@color/black"
             android:textSize="15dp"></TextView>
 
+        <!-- message tail -->
         <ImageView
             android:id="@+id/my_message_tail"
             android:layout_width="14dp"
@@ -54,5 +63,11 @@
             android:paddingTop="7dp"
             android:src="@drawable/chat_my_message_tail"
             app:tint="@color/yellow_200"></ImageView>
+
+        <ImageView
+            android:id="@+id/my_message_image_expanded"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
     </FrameLayout>
 </RelativeLayout>

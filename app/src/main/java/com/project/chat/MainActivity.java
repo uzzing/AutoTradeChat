@@ -1,6 +1,8 @@
 package com.project.chat;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,23 +12,32 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.chat.Fragment.ChatsFragment;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+import javax.security.auth.callback.CallbackHandler;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -35,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
     private DatabaseReference RootRef;
+
+    private ActionBarDrawerToggle toggle;
+    private boolean isDrawerOpened;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         // toolbar
         getSupportActionBar().setTitle("AutoTradeApp");
+        setUpNavigationDrawer();
 
         initializeFields();
+
     }
 
     private void initializeFields() {
@@ -69,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentUser == null) {
             sendUserToLoginActivity();
-        }
-        else {
+        } else {
             MyData.name = Arrays.stream(currentUser.getEmail().split("@")).findFirst().get();
         }
     }
@@ -81,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.options_menu, menu);
@@ -90,32 +104,30 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        super.onOptionsItemSelected(item);
-
-        if (item.getItemId() == R.id.main_logout_option)
-        {
-//            updateUserStatus("offline");
-            auth.signOut();
-            sendUserToLoginActivity();
-        }
-        if (item.getItemId() == R.id.main_find_settings_options)
-        {
-//            SendUserToSettingsActivity();
-        }
-        if (item.getItemId() == R.id.main_create_group_option)
-        {
-            requestNewGroupChat();
-        }
-        if (item.getItemId() == R.id.main_find_friends_option)
-        {
-//            SendUserToFindFriendsActivity();
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        super.onOptionsItemSelected(item);
+//
+////        if (toggle.onOptionsItemSelected(item)) return true;
+////        return super.onOptionsItemSelected(item);
+//
+//        if (item.getItemId() == R.id.main_logout_option) {
+////            updateUserStatus("offline");
+//            auth.signOut();
+//            sendUserToLoginActivity();
+//        }
+//        if (item.getItemId() == R.id.main_find_settings_options) {
+////            SendUserToSettingsActivity();
+//        }
+//        if (item.getItemId() == R.id.main_create_group_option) {
+//            requestNewGroupChat();
+//        }
+//        if (item.getItemId() == R.id.main_find_friends_option) {
+////            SendUserToFindFriendsActivity();
+//        }
+//
+//        return true;
+//    }
 
     private void requestNewGroupChat() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog);
@@ -156,5 +168,62 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, groupName + " group is created successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void setUpNavigationDrawer() {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        toggle = new ActionBarDrawerToggle (
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                isDrawerOpened = true;
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                isDrawerOpened = false;
+            }
+        };
+        drawer.addDrawerListener(toggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toggle.syncState();
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.main_layout) {
+            //getFragmentManager().beginTransaction().replace(R.id.main_tabs_pager, new ChatsFragment()).commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }
