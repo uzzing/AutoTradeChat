@@ -104,30 +104,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        super.onOptionsItemSelected(item);
-//
-////        if (toggle.onOptionsItemSelected(item)) return true;
-////        return super.onOptionsItemSelected(item);
-//
-//        if (item.getItemId() == R.id.main_logout_option) {
-////            updateUserStatus("offline");
-//            auth.signOut();
-//            sendUserToLoginActivity();
-//        }
-//        if (item.getItemId() == R.id.main_find_settings_options) {
-////            SendUserToSettingsActivity();
-//        }
-//        if (item.getItemId() == R.id.main_create_group_option) {
-//            requestNewGroupChat();
-//        }
-//        if (item.getItemId() == R.id.main_find_friends_option) {
-////            SendUserToFindFriendsActivity();
-//        }
-//
-//        return true;
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+//        if (toggle.onOptionsItemSelected(item)) return true;
+//        return super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == R.id.main_logout_option) {
+//            updateUserStatus("offline");
+            auth.signOut();
+            sendUserToLoginActivity();
+        }
+        if (item.getItemId() == R.id.main_find_settings_options) {
+//            SendUserToSettingsActivity();
+        }
+        if (item.getItemId() == R.id.main_create_group_option) {
+            requestNewGroupChat();
+        }
+        if (item.getItemId() == R.id.main_find_friends_option) {
+//            SendUserToFindFriendsActivity();
+        }
+
+        return true;
+    }
 
     private void requestNewGroupChat() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog);
@@ -222,8 +222,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 }
