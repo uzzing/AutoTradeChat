@@ -178,7 +178,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private void initializeFields() {
 
         // toolbar name
-        getSupportActionBar().setTitle(currentGroupName);
+//        getSupportActionBar().setTitle(currentGroupName);
 
         // show message list
         messageListView = (RecyclerView) findViewById(R.id.all_message_display);
