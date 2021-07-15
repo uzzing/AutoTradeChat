@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.project.chat.Fragment.ChatsFragment;
-import com.project.chat.Fragment.ContactsFragment;
-import com.project.chat.Fragment.GroupsFragment;
+import com.project.chat.fragment.ChatsFragment;
+import com.project.chat.fragment.ContactsFragment;
+import com.project.chat.fragment.GroupsFragment;
 
 public class TabsAccessorAdapter extends FragmentPagerAdapter {
 

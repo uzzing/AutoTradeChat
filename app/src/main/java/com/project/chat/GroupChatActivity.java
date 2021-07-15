@@ -4,24 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.project.chat.message.MessageAdapter;
+import com.project.chat.message.MessageItem;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 public class GroupChatActivity extends AppCompatActivity {
@@ -54,6 +53,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private EditText messageInput;
     private ScrollView scrollView;
     private ProgressDialog loadingBar;
+    private Toolbar toolbar;
 
     // get user info
     private FirebaseAuth auth;
@@ -81,7 +81,6 @@ public class GroupChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
-
 
         // show groupName on alert
         currentGroupName = getIntent().getExtras().get("groupName").toString();
@@ -177,8 +176,10 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        // toolbar name
-//        getSupportActionBar().setTitle(currentGroupName);
+        // toolbar
+        toolbar = (Toolbar) findViewById(R.id.chat_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentGroupName);
 
         // show message list
         messageListView = (RecyclerView) findViewById(R.id.all_message_display);

@@ -1,7 +1,6 @@
 package com.project.chat;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,7 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.project.chat.Fragment.ChatsFragment;
+import com.project.chat.fragment.ChatsFragment;
+import com.project.chat.mydata.MyData;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -35,29 +34,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-import javax.security.auth.callback.CallbackHandler;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private Toolbar toolbar;
+
+    // ui
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private TabsAccessorAdapter tabsAccessorAdapter;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private ChatsFragment chatsFragment;
 
+    // database
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
     private DatabaseReference RootRef;
-
-    private ActionBarDrawerToggle toggle;
-    private boolean isDrawerOpened;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        toolbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
 
         // get account data
         auth = FirebaseAuth.getInstance();
@@ -65,7 +60,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         // toolbar
-//        getSupportActionBar().setTitle("AutoTradeApp");
+        toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
+        // navigation drawer
         setUpNavigationDrawer();
 
         initializeFields();
@@ -112,11 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-//        if (toggle.onOptionsItemSelected(item)) return true;
-//        return super.onOptionsItemSelected(item);
-
         if (item.getItemId() == R.id.main_logout_option) {
-//            updateUserStatus("offline");
             auth.signOut();
             sendUserToLoginActivity();
         }
@@ -125,9 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if (item.getItemId() == R.id.main_create_group_option) {
             requestNewGroupChat();
-        }
-        if (item.getItemId() == R.id.main_find_friends_option) {
-//            SendUserToFindFriendsActivity();
         }
 
         return true;
@@ -174,29 +165,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
     }
 
+    // navigation drawer from here
     private void setUpNavigationDrawer() {
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        toggle = new ActionBarDrawerToggle (
-                this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        {
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//                isDrawerOpened = true;
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//                isDrawerOpened = false;
-//            }
-//        };
+        toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toggle.syncState();
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
@@ -217,14 +194,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if (menuItem.getItemId() == R.id.autotrade) {
-//            updateUserStatus("offline");
-            auth.signOut();
-            sendUserToLoginActivity();
+        if (menuItem.getItemId() == R.id.navi_chat) {
+            // go to chat activity
         }
 
-        if (id == R.id.main_layout) {
-            //getFragmentManager().beginTransaction().replace(R.id.main_tabs_pager, new ChatsFragment()).commit();
+        if (menuItem.getItemId() == R.id.navi_trade_chart) {
+            sendUserIntoChartActivity();
+        }
+
+        if (menuItem.getItemId() == R.id.navi_logout) {
+            auth.signOut();
+            sendUserToLoginActivity();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -232,8 +212,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//    }
+    public void sendUserIntoChartActivity() {
+        Intent chartIntent = new Intent(MainActivity.this, ChartActivity.class);
+        startActivity(chartIntent);
+    }
 }

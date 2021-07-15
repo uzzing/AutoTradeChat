@@ -7,12 +7,22 @@
     android:background="@color/blue_200"
     tools:context=".GroupChatActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/chat_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_300"
+        app:titleTextColor="@color/white">
+    </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/linearLayout">
+        android:layout_below="@+id/chat_toolbar"
+        android:layout_above="@+id/linearLayout"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
         <!-- message list -->
         <androidx.recyclerview.widget.RecyclerView
@@ -39,9 +49,10 @@
             android:src="@drawable/chat_send_image"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginRight="7dp">
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
+            app:tint="@color/blue_300">
         </ImageButton>
 
         <EditText
@@ -49,20 +60,20 @@
             android:layout_width="295dp"
             android:layout_height="wrap_content"
             android:hint="Please write message here"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             android:textColorHint="@color/gray"
-            android:textSize="18dp">
+            android:textSize="16dp">
         </EditText>
 
         <ImageButton
             android:id="@+id/chat_send_message"
             android:src="@drawable/chat_send_message"
-            android:layout_width="30dp"
+            android:layout_width="29dp"
             android:layout_height="30dp"
             android:scaleType="fitCenter"
             app:tint="@color/blue_300"
             android:layout_marginTop="12dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="7dp"
             android:background="@null">
         </ImageButton>
     </LinearLayout>

@@ -9,8 +9,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
-
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
@@ -18,12 +16,11 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -35,22 +32,25 @@
 
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/main_toolbar"
-
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:background="@android:color/white" />
+                        android:background="@color/blue_300"
+                        app:title="Autotrade App"
+                        app:titleTextColor="@color/white"/>
+
                 </com.google.android.material.appbar.AppBarLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/main_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:tabTextColor="@color/blue_300"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             </com.google.android.material.tabs.TabLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
-
-
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/main_tabs_pager"
@@ -66,6 +66,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:headerLayout="@layout/main_header"
         app:menu="@menu/navigationmenu">
     </com.google.android.material.navigation.NavigationView>
 

@@ -1,4 +1,4 @@
-package com.project.chat.Fragment;
+package com.project.chat.fragment;
 
 import android.os.Bundle;
 

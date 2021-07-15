@@ -1,4 +1,4 @@
-package com.project.chat;
+package com.project.chat.message;
 
 public class MessageItem {
 
