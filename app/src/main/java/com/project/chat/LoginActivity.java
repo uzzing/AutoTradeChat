@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private Toolbar toolbar;
     // ui
     private Button loginButton;
     private ImageButton googleLoginButton;
@@ -56,9 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
         // hide actionBar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+//        ActionBar actionBar = getSupportActionBar();
+////        actionBar.hide();
 
         // get account data
         auth = FirebaseAuth.getInstance();

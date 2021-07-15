@@ -38,7 +38,7 @@ import java.util.Arrays;
 import javax.security.auth.callback.CallbackHandler;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private TabsAccessorAdapter tabsAccessorAdapter;
@@ -55,13 +55,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
         // get account data
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         // toolbar
-        getSupportActionBar().setTitle("AutoTradeApp");
+//        getSupportActionBar().setTitle("AutoTradeApp");
         setUpNavigationDrawer();
 
         initializeFields();
@@ -175,20 +179,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         toggle = new ActionBarDrawerToggle (
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                isDrawerOpened = true;
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                isDrawerOpened = false;
-            }
-        };
+                this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        {
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//                isDrawerOpened = true;
+//            }
+//
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                super.onDrawerClosed(drawerView);
+//                isDrawerOpened = false;
+//            }
+//        };
         drawer.addDrawerListener(toggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toggle.syncState();
@@ -212,6 +216,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         int id = menuItem.getItemId();
+
+        if (menuItem.getItemId() == R.id.autotrade) {
+//            updateUserStatus("offline");
+            auth.signOut();
+            sendUserToLoginActivity();
+        }
 
         if (id == R.id.main_layout) {
             //getFragmentManager().beginTransaction().replace(R.id.main_tabs_pager, new ChatsFragment()).commit();
